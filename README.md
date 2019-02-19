@@ -1,1 +1,1 @@
-# obj
+# Antra užduotis: Duomenų apdorojimas
