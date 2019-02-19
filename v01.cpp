@@ -43,8 +43,10 @@ void isvedimas (vector <stud> &D)
 {
     cout<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(24)<<"Vidurkis"<<endl;
     cout<<"----------------------------------------------------------------------"<<endl;
-    cout<<D[studsk].vrd<<std::setw(14)<<D[studsk].pvrd<<std::setw(24)<<std::setprecision(2)<<D[studsk].vid<<endl;
-
+    for(int i=0; i<studsk; i++)
+    {
+        cout<<D[studsk].vrd<<std::setw(14)<<D[studsk].pvrd<<std::setw(24)<<std::setprecision(2)<<D[studsk].vid<<endl;
+    }
 }
 void ivedimas (vector <stud> &D)
 {
