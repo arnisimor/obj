@@ -1,1 +1,1 @@
-# Antra užduotis: Duomenų apdorojimas
+# Objektinio programavimo 2 užduotis: Duomenų apdorojimas
