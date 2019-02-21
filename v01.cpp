@@ -3,6 +3,9 @@
 #include <string>
 #include <cassert>
 #include <vector>
+#include <time.h>
+#include <cmath>
+#include <algorithm>
 using std::cout;
 using std::cin;
 using std::endl;
@@ -18,7 +21,7 @@ struct stud
     vector <int> nd;
     int egz;
     double vid;
-
+    int med;
 };
 
 bool arsk(const string &sk)
@@ -34,23 +37,37 @@ void skaic (vector <stud> &D)
     for(int i=0; i<D[studsk].n; i++)
     {
         ndsuma=ndsuma+D[studsk].nd[i];
-        galv=0.4*(ndsuma/D[studsk].n)+0.6*D[studsk].egz;
+        galv=0.4*(ndsuma/D[studsk].n)+(0.6*D[studsk].egz);
         D[studsk].vid=galv;
-        cout<<D[studsk].vid;
     }
 }
+
+void mskaic(vector <stud> &D)
+{
+    std::sort(D[studsk].nd.begin(),D[studsk].nd.end());
+    if(D[studsk].n % 2 == 0)
+        {
+            D[studsk].med=(D[studsk].nd[D[studsk].n/2-1]+D[studsk].nd[D[studsk].n/2])/2;
+        }
+        else
+        {
+            D[studsk].med=(D[studsk].nd[D[studsk].n/2]);
+        }
+}
+
+
 void isvedimas (vector <stud> &D)
 {
-    cout<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(24)<<"Vidurkis"<<endl;
-    cout<<"----------------------------------------------------------------------"<<endl;
+    cout<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
+    cout<<"----------------------------------------------------------------------------------"<<endl;
     for(int i=0; i<studsk; i++)
     {
-        cout<<D[studsk].vrd<<std::setw(14)<<D[studsk].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<D[studsk].vid<<endl;
+        cout<<D[i].vrd<<std::setw(14)<<D[i].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<D[i].vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<D[i].med<<endl;
     }
 }
 void ivedimas (vector <stud> &D)
 {
-    pradzia:
+
     int n=0;
     double gal[256];
     string tikrinama="t";
@@ -69,6 +86,7 @@ void ivedimas (vector <stud> &D)
         string p;
         cin>>p;
         D[studsk].pvrd=p;
+        pradzia:
         cout<<"iveskite namu darbu uzduociu skaiciu: ";
         string snd;
         cin>>snd;
@@ -80,29 +98,78 @@ void ivedimas (vector <stud> &D)
         else
         {
             D[studsk].n=std::stoi(snd);
+            cout<<"coutas D[studsk].n="<<D[studsk].n<<endl;
         }
-        cout<<endl;
-        cout<<"Iveskite studento pazymius: "<<endl;
-        for(int i=1; i<=D[studsk].n; i++)
-        {
-            int pzm;
-            cout<<"Pazymys nr. "<<i<<": ";
-            cin>>pzm;
-            D[studsk].nd.push_back(pzm);
-        }
-        cout<<"Iveskite studento egzamino rezultata: ";
+        pcheck:
+        cout<<"Ar norite ivesti pazymius (t), ar sugeneruoti atsitiktinai(a)?"<<endl;
+        string ptkr;
+        cin>>ptkr;
+        int pzm;
+        string pazym;
         int e;
-        cin>>e;
-        D[studsk].egz=e;
-        skaic(D);
-        studsk++;
-    }
-    else
-    {
+        if(ptkr=="t")
+        {
+            cout<<endl;
+            cout<<"Iveskite studento pazymius: "<<endl;
+            for(int i=0; i<D[studsk].n; i++)
+            {
+                pazymiai:
+                    cout<<"Pazymys nr. "<<i+1<<": ";
+                    cin>>pazym;
+                    cout<<"pazym="<<pazym<<endl;
+                    if(arsk(pazym)==false)
+                    {
+                        cout<<"Iveskite skaiciu!";
+                        goto pazymiai;
+                    }
+                    else
+                    {
+                        pzm=std::stoi(pazym);
+                        cout<<"pzm="<<pzm<<endl;
+                        D[studsk].nd.push_back(pzm);
+                        cout<<"coutas D[studsk].nd="<<D[studsk].nd[i]<<endl;
+                    }
+            }
+            cout<<"Iveskite studento egzamino rezultata: ";
+            int e;
+            cin>>e;
+            D[studsk].egz=e;
+            cout<<D[studsk].egz<<endl;
+        }
+        srand(time(NULL));
+        if(ptkr=="a")
+        {
+            cout<<D[studsk].n<<" swx"<<endl;
+            for(int i=0; i<D[studsk].n; i++)
+            {
+                pzm=1+std::round((double)rand()/RAND_MAX*(10-1));
+                D[studsk].nd.push_back(pzm);
+                cout<<D[studsk].nd[i]<<" zdarooowa "<<endl;
+
+
+            }
+                srand(time(NULL));
+                e=1+(double)rand()/RAND_MAX*(10-1);
+
+        }
+        else
+        {
+            cout<<"ivedete netinkama raide!"<<endl;
+            goto pcheck;
+        }
+            skaic(D);
+            mskaic(D);
+            studsk++;
+            cout<<"stdsk"<<studsk;
+
+        }
+        else
+        {
+
+
         isvedimas(D);
     }
     }
-
 }
 
 
