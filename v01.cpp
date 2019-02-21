@@ -45,7 +45,7 @@ void isvedimas (vector <stud> &D)
     cout<<"----------------------------------------------------------------------"<<endl;
     for(int i=0; i<studsk; i++)
     {
-        cout<<D[studsk].vrd<<std::setw(14)<<D[studsk].pvrd<<std::setw(24)<<std::setprecision(2)<<D[studsk].vid<<endl;
+        cout<<D[studsk].vrd<<std::setw(14)<<D[studsk].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<D[studsk].vid<<endl;
     }
 }
 void ivedimas (vector <stud> &D)
@@ -94,8 +94,8 @@ void ivedimas (vector <stud> &D)
         int e;
         cin>>e;
         D[studsk].egz=e;
+        skaic(D);
         studsk++;
-        kaic(D);
     }
     else
     {
