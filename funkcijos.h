@@ -37,8 +37,10 @@ void skaic (vector <stud> &D);
 void mskaic(vector <stud> &D);
 void swap(struct stud* i, struct stud* j);
 void sort(vector <stud> &D);
+void atrinkimas(vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai);
 void isvedimas (vector <stud> &D);
 void rivedimas(vector <stud> &D);
+void generavimas(int irasai);
 void fivedimas(vector <stud> &D);
 void ivedimas (vector <stud> &D);
 

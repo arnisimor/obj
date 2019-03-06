@@ -84,6 +84,34 @@ void sort(vector <stud> &D)
 			}
 		}
 }
+
+int k=0;
+int v=0;
+void atrinkimas(vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai)
+{
+    for (int i=0; i<studsk; i++)
+    {
+        if (D[i].vid >= 5)
+        {
+            kietiakai.push_back(stud());
+            kietiakai[k].vrd=D[i].vrd;
+            kietiakai[k].pvrd=D[i].pvrd;
+            kietiakai[k].vid=D[i].vid;
+            kietiakai[k].med=D[i].med;
+            k++;
+        }
+        else
+        {
+            vargsiukai.push_back(stud());
+            vargsiukai[v].vrd=D[i].vrd;
+            vargsiukai[v].pvrd=D[i].pvrd;
+            vargsiukai[v].vid=D[i].vid;
+            vargsiukai[v].med=D[i].med;
+            v++;
+        }
+    }
+}
+
 void isvedimas (vector <stud> &D)
 {
     cout<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
@@ -203,6 +231,29 @@ void rivedimas(vector <stud> &D)
     sort(D);
     isvedimas(D);
 }
+
+void generavimas(int irasai) {
+  auto vardas = std::to_string(irasai);
+  string fd="studentai" + vardas + ".txt";
+  ofstream fr(fd);
+  fr << "ivedimas" << endl;
+  string studv = "vardas";
+  string studp = "pavarde";
+  int sk[ndsk];
+  int egz;
+  srand(time(NULL));
+  for (int i = 0; i < irasai; i++) {
+    fr << studv << i << "  " << studp << i << "  ";
+    for (int j = 0; j < ndsk; j++) {
+      sk[j] = std::round(1 + (double) rand() / RAND_MAX * (10 - 1));
+      fr << sk[j] << "  ";
+    }
+    egz = std::round(1 + (double) rand() / RAND_MAX * (10 - 1));
+    fr << egz << endl;
+  }
+  fr.close();
+}
+
 void fivedimas(vector <stud> &D)
 {
   ifstream in ("A.txt");
@@ -226,6 +277,7 @@ studsk++;
 
 studsk=studsk-1;
 sort(D);
+//atrinkimas(D, k, v);
 isvedimas(D);
 }
 void ivedimas (vector <stud> &D)
