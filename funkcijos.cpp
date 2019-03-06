@@ -1,5 +1,3 @@
-#include "funkcijos.h"
-
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -8,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <fstream>
+#include <chrono>
 
 using std::cin;
 using std::endl;
@@ -19,6 +18,17 @@ using std::ofstream;
 
 int studsk=0;
 int const ndsk=5;
+int irasai=0;
+struct stud
+{
+    string vrd;
+    string pvrd;
+    int n;
+    vector <int> nd;
+    int egz;
+    double vid;
+    double med;
+};
 
 bool arsk(const string &sk)
 {
@@ -112,16 +122,26 @@ void atrinkimas(vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargs
     }
 }
 
-void isvedimas (vector <stud> &D)
+void isvedimas (vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai)
 {
-    cout<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
-    cout<<"----------------------------------------------------------------------------------"<<endl;
-    for(int i=0; i<studsk; i++)
+    ofstream frk("kietiakai.txt",std::ios::app);
+    ofstream frv("vargsiukai.txt",std::ios::app);
+    frk<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
+    frk<<"----------------------------------------------------------------------------------"<<endl;
+    for(int i=0; i<k; i++)
     {
-        cout<<D[i].vrd<<std::setw(14)<<D[i].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<D[i].vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<D[i].med<<endl;
+        frk<<kietiakai[i].vrd<<std::setw(14)<<kietiakai[i].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<kietiakai[i].vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<kietiakai[i].med<<endl;
     }
+    frk.close();
+    frv<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
+    frv<<"----------------------------------------------------------------------------------"<<endl;
+    for(int i=0; i<v; i++)
+    {
+        frv<<vargsiukai[i].vrd<<std::setw(14)<<vargsiukai[i].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<vargsiukai[i].vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<vargsiukai[i].med<<endl;
+    }
+    frv.close();
 }
-void rivedimas(vector <stud> &D)
+void rivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v)
 {
     string tikrinama="t";
     while(tikrinama=="t"){
@@ -229,12 +249,22 @@ void rivedimas(vector <stud> &D)
     }
     }
     sort(D);
-    isvedimas(D);
+    isvedimas(D,k,v);
 }
-
-void generavimas(int irasai) {
-  auto vardas = std::to_string(irasai);
-  string fd="studentai" + vardas + ".txt";
+void generavimas(string irasai) {
+    ircp:
+    int ir=0;
+    auto pavad =irasai;
+    if(arsk(irasai)==false)
+    {
+        cout<<"irasai turi buti skaicius!";
+        goto ircp;
+    }
+    else
+    {
+        ir=std::stoi(irasai);
+    }
+  string fd="studentai" + pavad + ".txt";
   ofstream fr(fd);
   fr << "ivedimas" << endl;
   string studv = "vardas";
@@ -242,7 +272,7 @@ void generavimas(int irasai) {
   int sk[ndsk];
   int egz;
   srand(time(NULL));
-  for (int i = 0; i < irasai; i++) {
+  for (int i = 0; i < ir; i++) {
     fr << studv << i << "  " << studp << i << "  ";
     for (int j = 0; j < ndsk; j++) {
       sk[j] = std::round(1 + (double) rand() / RAND_MAX * (10 - 1));
@@ -254,9 +284,10 @@ void generavimas(int irasai) {
   fr.close();
 }
 
-void fivedimas(vector <stud> &D)
+void fivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai )
 {
-  ifstream in ("A.txt");
+    generavimas(irasai);
+  ifstream in ("studentai" + pavad + ".txt");
 in.ignore(256,'\n');
 int p;
 
@@ -277,21 +308,35 @@ studsk++;
 
 studsk=studsk-1;
 sort(D);
-//atrinkimas(D, k, v);
-isvedimas(D);
+atrinkimas(D, k, v);
+
+isvedimas(D,k,v);
 }
-void ivedimas (vector <stud> &D)
+
+void ivedimas (vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai)
 {
     string tikrinama;
     cout<<"Iveskite r raide, jei ranka norite prideti studento duomenis, jei norite nuskaityti is failo, spauskite bet kuri kita mygtuka: ";
     cin>>tikrinama;
     if(tikrinama=="r")
     {
-        rivedimas(D);
+        rivedimas(D,k,v);
         }
         else
         {
-            fivedimas(D);
+            irasucp:
+            cout<<"iveskite kiek zmoniu duomenu bus:"<<endl;
+            cin>>irasai;
+            if(arsk(irasai)==false)
+        {
+            cout<<"ivestas skaicius netinkamas, iveskite tinkama skaiciu (teigiama sveikaji skaiciu) "<<endl;
+            goto irasucp;
+        }
+        else
+        {
+            generavimas(irasai);
+        }
+            fivedimas(D,k,v);
         }
 }
 

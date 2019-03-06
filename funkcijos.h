@@ -9,6 +9,7 @@
 #include <cmath>
 #include <algorithm>
 #include <fstream>
+#include <chrono>
 
 using std::cin;
 using std::endl;
@@ -38,10 +39,10 @@ void mskaic(vector <stud> &D);
 void swap(struct stud* i, struct stud* j);
 void sort(vector <stud> &D);
 void atrinkimas(vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai);
-void isvedimas (vector <stud> &D);
-void rivedimas(vector <stud> &D);
-void generavimas(int irasai);
-void fivedimas(vector <stud> &D);
-void ivedimas (vector <stud> &D);
+void isvedimas (vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai);
+void rivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v);
+void generavimas(string irasai);
+void fivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai);
+void ivedimas (vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai);
 
 #endif // FUNKCIJOS_H
