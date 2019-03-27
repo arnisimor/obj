@@ -19,20 +19,6 @@ using std::vector;
 using std::ifstream;
 using std::ofstream;
 
-int studsk=0;
-int const ndsk=5;
-int irasai=0;
-struct stud
-{
-    string vrd;
-    string pvrd;
-    int n;
-    vector <int> nd;
-    int egz;
-    double vid;
-    double med;
-};
-
 bool arsk(const string &sk)
 {
     string::const_iterator sv=sk.begin();
