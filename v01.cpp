@@ -1,4 +1,4 @@
-#include "struktura.h"
+#include "funkcijos.h"
 
 int main()
 {
