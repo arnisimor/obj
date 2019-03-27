@@ -20,9 +20,6 @@ using std::vector;
 using std::ifstream;
 using std::ofstream;
 
-int studsk=0;
-int const ndsk=5;
-int irasai=0;
 struct stud
 {
     string vrd;

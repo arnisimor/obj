@@ -19,6 +19,9 @@ using std::vector;
 using std::ifstream;
 using std::ofstream;
 
+int studsk=0;
+int const ndsk=5;
+int irasai=0;
 bool arsk(const string &sk)
 {
     string::const_iterator sv=sk.begin();
