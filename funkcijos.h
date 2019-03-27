@@ -1,5 +1,5 @@
-#ifndef FUNKCIJOS_H
-#define FUNKCIJOS_H
+#ifndef GUARD_FUNKCIJOS_H
+#define GUARD_FUNKCIJOS_H
 
 #include <iostream>
 #include <iomanip>
@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <fstream>
 #include <chrono>
+#include <random>
 
 using std::cin;
 using std::endl;
@@ -19,6 +20,9 @@ using std::vector;
 using std::ifstream;
 using std::ofstream;
 
+int studsk=0;
+int const ndsk=5;
+int irasai=0;
 struct stud
 {
     string vrd;
@@ -30,8 +34,6 @@ struct stud
     double med;
 };
 
-
-#define data "A.txt";
 
 bool arsk(const string &sk);
 void skaic (vector <stud> &D);

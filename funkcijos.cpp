@@ -1,3 +1,5 @@
+#include "funkcijos.h"
+
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -7,6 +9,7 @@
 #include <algorithm>
 #include <fstream>
 #include <chrono>
+#include <random>
 
 using std::cin;
 using std::endl;
@@ -141,6 +144,7 @@ void isvedimas (vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargs
     }
     frv.close();
 }
+
 void rivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v)
 {
     string tikrinama="t";
@@ -251,34 +255,26 @@ void rivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v)
     sort(D);
     isvedimas(D,k,v);
 }
+
 void generavimas(string irasai) {
-    ircp:
-    int ir=0;
-    auto pavad =irasai;
-    if(arsk(irasai)==false)
-    {
-        cout<<"irasai turi buti skaicius!";
-        goto ircp;
-    }
-    else
-    {
-        ir=std::stoi(irasai);
-    }
-  string fd="studentai" + pavad + ".txt";
-  ofstream fr(fd);
-  fr << "ivedimas" << endl;
+    int ir;
+    ir=std::stoi(irasai);
+    string fd="studentai" + irasai + ".txt";
+      ofstream fr(fd);
   string studv = "vardas";
   string studp = "pavarde";
+  //fr << "ivedimas" << endl;
   int sk[ndsk];
   int egz;
-  srand(time(NULL));
-  for (int i = 0; i < ir; i++) {
+  std::mt19937 rand(time(0));
+  std::uniform_int_distribution<int> pazymiai(1,10);
+  for (int i=0; i<=ir; i++) {
     fr << studv << i << "  " << studp << i << "  ";
     for (int j = 0; j < ndsk; j++) {
-      sk[j] = std::round(1 + (double) rand() / RAND_MAX * (10 - 1));
+      sk[j] = std::round(pazymiai(rand));
       fr << sk[j] << "  ";
     }
-    egz = std::round(1 + (double) rand() / RAND_MAX * (10 - 1));
+    egz = std::round(pazymiai(rand));
     fr << egz << endl;
   }
   fr.close();
@@ -287,6 +283,7 @@ void generavimas(string irasai) {
 void fivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai )
 {
     generavimas(irasai);
+    auto pavad=irasai;
   ifstream in ("studentai" + pavad + ".txt");
 in.ignore(256,'\n');
 int p;
@@ -316,6 +313,7 @@ isvedimas(D,k,v);
 void ivedimas (vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai)
 {
     string tikrinama;
+    //string zmoniusk;
     cout<<"Iveskite r raide, jei ranka norite prideti studento duomenis, jei norite nuskaityti is failo, spauskite bet kuri kita mygtuka: ";
     cin>>tikrinama;
     if(tikrinama=="r")
@@ -334,9 +332,14 @@ void ivedimas (vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai
         }
         else
         {
+            auto start = std::chrono::high_resolution_clock::now();
+        {
             generavimas(irasai);
         }
-            fivedimas(D,k,v);
+            fivedimas(D,k,v,irasai);
+            auto finish = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> elapsed = finish - start;
+            std::cout << "veikimo laikas: " << elapsed.count() << " s\n";
         }
 }
-
+}
