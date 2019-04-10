@@ -1,5 +1,5 @@
-#ifndef GUARD_FUNKCIJOS_H
-#define GUARD_FUNKCIJOS_H
+#ifndef GUARD_DEQFUNKCIJOS_H
+#define GUARD_DEQFUNKCIJOS_H
 
 #include <iostream>
 #include <iomanip>
@@ -45,4 +45,4 @@ void generavimas(string irasai);
 void fivedimas(deque <stud> &D,deque <stud> &k,deque <stud> &v, string irasai);
 void ivedimas (deque <stud> &D,deque <stud> &k,deque <stud> &v, string irasai);
 
-#endif // FUNKCIJOS_H
+#endif // DEQFUNKCIJOS_H
