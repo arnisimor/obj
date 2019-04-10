@@ -1,0 +1,11 @@
+CXX=c++
+CXXFLAGS=-g -std=c++11 -Wall -pedantic
+
+main: open.o
+	g++ -std=c++11 -o funkcijos funkcijos.cpp open.o
+open:
+	g++ -std=c++11 -c apdorojimas.cpp
+arba jei pagrindinis failas v01.cpp:
+	g++ -std=c++11 -c v01.cpp
+clean:
+	rm *.o funkcijos
