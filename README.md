@@ -37,3 +37,21 @@
 - 1000 studentų: 0.087s.
 - 10000 studentų 0.553s.
 - 100000 studentų 6.246s.
+
+## V1.0 Greičio matavimai
+
+## [2 strategija(Vector)]
+- Atlikimo sparta:
+- 10 studentų: 0.011s.
+- 100 studentų: 0.015s.
+- 1000 studentų: 0.062s.
+- 10000 studentų 0.317s.
+- 100000 studentų 3.331s.
+
+## [2 strategija(Deque)]
+- Atlikimo sparta:
+- 10 studentų: 0.015s.
+- 100 studentų: 0.015s.
+- 1000 studentų: 0.062s.
+- 10000 studentų 0.443s.
+- 100000 studentų 4.279s.
