@@ -86,14 +86,11 @@ void sort(vector <stud> &D)
 			}
 		}
 }
-
-int k=0;
-int v=0;
-
 bool compare_m (stud &a, stud &b){
   return a.vid<b.vid;
 }
-void atrinkimas(vector<stud> &D, vector<stud> &kietiakai, vector<stud> &vargsiukai)
+
+void skirstymas(vector<stud> &D, vector<stud> &kietiakai, vector<stud> &vargsiukai)
 {
         sort(D.begin(), D.end(), compare_m);
         for (int i = 0; i < D.size(); i++){
@@ -115,23 +112,22 @@ it != D.end(); it++)
     kietiakai.assign(ptr,D.end());
     }
 
-
 void isvedimas (vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai)
 {
     ofstream frk("kietiakai.txt",std::ios::app);
     ofstream frv("vargsiukai.txt",std::ios::app);
     frk<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
     frk<<"----------------------------------------------------------------------------------"<<endl;
-    for(int i=0; i<k; i++)
+    for(auto &i:kietiakai)
     {
-        frk<<kietiakai[i].vrd<<std::setw(14)<<kietiakai[i].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<kietiakai[i].vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<kietiakai[i].med<<endl;
+        frk<<i.vrd<<std::setw(14)<<i.pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<i.vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<i.med<<endl;
     }
     frk.close();
     frv<<"Vardas"<<std::setw(14)<<"Pavarde"<<std::setw(45)<<"Galutinis(vid.)/Galutinis(med)"<<endl;
     frv<<"----------------------------------------------------------------------------------"<<endl;
-    for(int i=0; i<v; i++)
+    for(auto &i:vargsiukai)
     {
-        frv<<vargsiukai[i].vrd<<std::setw(14)<<vargsiukai[i].pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<vargsiukai[i].vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<vargsiukai[i].med<<endl;
+        frv<<i.vrd<<std::setw(14)<<i.pvrd<<std::setw(24)<<std::fixed<<std::setprecision(2)<<i.vid<<std::setw(24)<<std::fixed<<std::setprecision(2)<<i.med<<endl;
     }
     frv.close();
 }
@@ -244,6 +240,7 @@ void rivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v)
     }
     }
     sort(D);
+    skirstymas(D,k,v);
     isvedimas(D,k,v);
 }
 
@@ -271,7 +268,7 @@ void generavimas(string irasai) {
   fr.close();
 }
 
-void fivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai )
+void fivedimas(vector <stud> &D,vector <stud> &k,vector <stud> &v,string irasai)
 {
     generavimas(irasai);
     auto pavad=irasai;
@@ -293,11 +290,8 @@ skaic(D);
 mskaic(D);
 studsk++;
 }
-
 studsk=studsk-1;
-sort(D);
-atrinkimas(D, k, v);
-
+skirstymas(D,k,v);
 isvedimas(D,k,v);
 }
 
