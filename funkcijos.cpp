@@ -89,30 +89,32 @@ void sort(vector <stud> &D)
 
 int k=0;
 int v=0;
-void atrinkimas(vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai)
-{
-    for (int i=0; i<studsk; i++)
-    {
-        if (D[i].vid >= 5)
-        {
-            kietiakai.push_back(stud());
-            kietiakai[k].vrd=D[i].vrd;
-            kietiakai[k].pvrd=D[i].pvrd;
-            kietiakai[k].vid=D[i].vid;
-            kietiakai[k].med=D[i].med;
-            k++;
-        }
-        else
-        {
-            vargsiukai.push_back(stud());
-            vargsiukai[v].vrd=D[i].vrd;
-            vargsiukai[v].pvrd=D[i].pvrd;
-            vargsiukai[v].vid=D[i].vid;
-            vargsiukai[v].med=D[i].med;
-            v++;
-        }
-    }
+
+bool compare_m (stud &a, stud &b){
+  return a.vid<b.vid;
 }
+void atrinkimas(vector<stud> &D, vector<stud> &kietiakai, vector<stud> &vargsiukai)
+{
+        sort(D.begin(), D.end(), compare_m);
+        for (int i = 0; i < D.size(); i++){
+        };
+    vector<stud>::iterator ptr = D.begin();
+        for(vector<stud>::iterator it = D.begin();
+it != D.end(); it++)
+{
+  if((*it).vid>=5)
+  {
+    ptr=it;
+
+    break;
+  }
+    }
+    vargsiukai.resize(ptr-D.begin());
+    vargsiukai.assign(D.begin(),ptr);
+    kietiakai.resize(D.end()-ptr);
+    kietiakai.assign(ptr,D.end());
+    }
+
 
 void isvedimas (vector <stud> &D, vector <stud> &kietiakai, vector <stud> &vargsiukai)
 {
@@ -321,10 +323,10 @@ void ivedimas (vector <stud> &D,vector <stud> &k,vector <stud> &v, string irasai
         }
         else
         {
-            auto start = std::chrono::high_resolution_clock::now();
         {
             generavimas(irasai);
         }
+            auto start = std::chrono::high_resolution_clock::now();
             fivedimas(D,k,v,irasai);
             auto finish = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> elapsed = finish - start;
