@@ -21,7 +21,7 @@
 - Studentų atrinkimas pagal vidurkį.
 - Atrinkti studentai išskirstomi į du skirtingus txt failus.
 
-## [V0.5] Greičio matavimai
+## V0.5 Greičio matavimai
 ## [1 strategija(Listai)]
 - Atlikimo sparta:
 - 10 studentų: 0.012s.
